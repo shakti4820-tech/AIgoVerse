@@ -5,6 +5,7 @@ warnings.filterwarnings('ignore')
 from style import inject_style
 from clustering_page import render_clustering_page
 from regression_page import render_regression_page
+from dim_reduction_page import render_dim_reduction_page
 
 # ── Classification imports ────────────────────────────────────────────────────
 import numpy as np
@@ -83,7 +84,7 @@ with st.sidebar:
     st.markdown("---")
     page = st.radio(
         "Navigate",
-        ["🏠  Home", "📊  Classification", "🔵  Clustering", "📈  Regression"],
+        ["🏠  Home", "📊  Classification", "🔵  Clustering", "📈  Regression", "📉  Dimensionality Reduction"],
         label_visibility="collapsed"
     )
     st.markdown("---")
@@ -107,7 +108,7 @@ if page == "🏠  Home":
   </p>
 </div>""", unsafe_allow_html=True)
 
-    c1, c2, c3 = st.columns(3)
+    c1, c2, c3, c4 = st.columns(4)
     cards = [
         ("📊", "Classification", c1, "#00d4ff",
          "Learn how algorithms draw boundaries to separate different classes.<br><br>"
@@ -121,6 +122,10 @@ if page == "🏠  Home":
          "Predict continuous numerical values from input features.<br><br>"
          "7 algorithms: Linear, Ridge, Lasso, Polynomial, SVR, Random Forest, Gradient Boosting.<br><br>"
          "Features: Fit plot, residual analysis, 3D surface, R² score, theory notes, GFG links."),
+        ("📉", "Dim Reduction", c4, "#ff6b6b",
+         "Project high-dimensional datasets into lower 2D/3D spaces.<br><br>"
+         "4 algorithms: PCA, LDA, t-SNE, UMAP.<br><br>"
+         "Features: 2D & 3D Interactive manifolds, variance ratio bars, notes, quizzes, theory, reference sources."),
     ]
     for icon, title, col, color, desc in cards:
         with col:
@@ -151,6 +156,7 @@ Whether you're preparing for an interview, completing a course, or just curious 
         "📊 Classification (7)": ["Logistic Regression","Decision Tree","Random Forest","SVM (RBF)","KNN","Naive Bayes","Gradient Boosting"],
         "🔵 Clustering (4)":     ["K-Means","DBSCAN","Hierarchical","Gaussian Mixture"],
         "📈 Regression (7)":     ["Linear","Ridge","Lasso","Polynomial","SVR","RF Regressor","GB Regressor"],
+        "📉 Dim Reduction (4)":  ["PCA","LDA","t-SNE","UMAP"],
     }
     for section, algos in rows.items():
         st.markdown(f"**{section}**")
@@ -393,6 +399,13 @@ elif page == "🔵  Clustering":
 # ═══════════════════════════════════════════════════════════════════════════════
 elif page == "📈  Regression":
     render_regression_page()
+
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 📉  DIMENSIONALITY REDUCTION PAGE
+# ═══════════════════════════════════════════════════════════════════════════════
+elif page == "📉  Dimensionality Reduction":
+    render_dim_reduction_page()
 
 
 # ─── Footer ───────────────────────────────────────────────────────────────────
